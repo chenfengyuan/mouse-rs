@@ -113,7 +113,7 @@ impl Mouse {
     pub fn get_position(&self) -> Result<Point, Box<dyn std::error::Error>> {
         let mut pos: POINT = POINT { x: 0, y: 0 };
         unsafe {
-            let get_cursor_pos: libloading::Symbol<unsafe extern "C" fn(lp_point: &POINT) -> bool> =
+            let get_cursor_pos: libloading::Symbol<unsafe extern "C" fn(lp_point: &mut POINT) -> bool> =
                 self.user32.get(b"GetCursorPos")?;
             get_cursor_pos(&mut pos);
             Ok(pos.into())
